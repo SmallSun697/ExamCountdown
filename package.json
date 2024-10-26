@@ -2,6 +2,8 @@
   "name": "exam-countdown",
   "version": "1.0.0",
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "node-cron": "^3.0.3",
+    "simple-git": "^3.27.0"
   }
 }
