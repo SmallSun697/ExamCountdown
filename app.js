@@ -1,12 +1,14 @@
 const express = require('express');
-const { join } = require('path');
-const { execSync } = require('child_process');
+const {join} = require('path');
+const {execSync} = require('child_process');
 const cron = require('node-cron');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 let fetch;
+
+app.use(express.static(join(__dirname, '')));
 
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'index.html'));
@@ -22,7 +24,7 @@ app.listen(PORT, () => {
 
 cron.schedule('*/10 * * * * *', () => {
     fetch(""/*TODO*/, {
-        headers: { "branchUpdateTime": ""/*TODO*/ }
+        headers: {"branchUpdateTime": ""/*TODO*/}
     })
         .then(response => response.text())
         .then(data => {
