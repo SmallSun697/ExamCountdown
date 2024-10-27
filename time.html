@@ -28,7 +28,7 @@
             document.getElementById("time").innerText = `${hours}:${minutes}:${seconds}`;
         }
         updateTime();
-        setInterval(function() {updateTime();}, 1000);
+        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>
