@@ -10,12 +10,8 @@ let fetch;
 
 app.use(express.static(join(__dirname, '')));
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(join(__dirname, 'index.html'));
-});
-
-app.get('/time', (req, res) => {
-    res.sendFile(join(__dirname, 'time.html'));
 });
 
 app.listen(PORT, () => {
