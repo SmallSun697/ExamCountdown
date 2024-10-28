@@ -13,14 +13,12 @@ function updateDatabase() {
 }
 
 function loadPage(page) {
-    if (!page) {
-        //page = /*TODO:database*/
-        return;
-    }
+    const iframe = document.createElement("iframe");
     if (window.location.hash) {
         page = window.location.hash.slice(1);
+    }else if (!page) {
+        //page = /*TODO:database*/
     }
-    const iframe = document.createElement("iframe");
     iframe.src = `${page}.html`;
     iframe.style.width = "100%";
     iframe.style.height = "100%";
