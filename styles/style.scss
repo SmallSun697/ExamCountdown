@@ -1,3 +1,8 @@
+:root {
+  --main-color: #ffffff;
+  --secondary-color: #000000;
+}
+
 body, html {
   margin: 0;
   width: 100%;
@@ -5,4 +10,9 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--secondary-color);
+}
+
+p {
+  color: var(--main-color);
 }
