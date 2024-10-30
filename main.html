@@ -47,7 +47,18 @@
         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
         const milliseconds = Math.floor(timeRemaining % 1000);
-        let formattedTime = `${days}天 ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
+        let formattedTime = "";
+
+        if (days > 0) {
+            formattedTime += `${days}天 `;
+        }
+        if (hours > 0 || days > 0) {
+            formattedTime += `${String(hours).padStart(2, '0')}:`;
+        }
+        if (minutes > 0 || hours > 0 || days > 0) {
+            formattedTime += `${String(minutes).padStart(2, '0')}:`;
+        }
+        formattedTime += `${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
         if (timeRemaining <= 0) {
             clearInterval(interval);
             formattedTime = "考試開始";
