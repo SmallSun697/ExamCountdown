@@ -7,16 +7,17 @@ function updateDatabase() {
         .then(response => response.text())
         .then(data => {
             if (data === "true") {
-                location.reload();
+                loadPage();
             }
         });
 }
 
 function loadPage(page) {
+    const hash = window.location.hash.slice(1);
     const old = document.body.querySelectorAll(".display");
     const iframe = document.createElement("iframe");
-    if (window.location.hash) {
-        page = window.location.hash.slice(1);
+    if (hash) {
+        page = hash.split('&')[0];
     } else if (!page) {
         //page = /*TODO:database*/
     }
@@ -31,7 +32,6 @@ function loadPage(page) {
     iframe.style.position = "fixed";
     iframe.style.top = "0";
     iframe.style.left = "0";
-    iframe.style.display = "none";
     document.body.appendChild(iframe);
     iframe.onload = () => {
         document.querySelectorAll(".old").forEach((item) => {

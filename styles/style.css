@@ -11,10 +11,12 @@ body, html {
   justify-content: center;
   align-items: center;
   background-color: var(--secondary-color);
+  transition: background-color 3s ease;
 }
 
 p {
   color: var(--main-color);
+  transition: color 1s ease;
 }
 
 /*# sourceMappingURL=style.css.map */
