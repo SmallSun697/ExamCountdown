@@ -1,9 +1,8 @@
-let database;
+import {setDatabase, database} from "./database.js";
 
 function updateDatabase() {
-    fetch("databaseUpdate"/*TODO*/, {
-        headers: {"databaseUpdateTime": ""/*TODO*/}
-    })
+    fetch("databaseUpdate"/*TODO*/
+    )
         .then(response => response.text())
         .then(data => {
             if (data === "true") {
@@ -18,8 +17,6 @@ function loadPage(page) {
     const iframe = document.createElement("iframe");
     if (hash) {
         page = hash.split('&')[0];
-    } else if (!page) {
-        //page = /*TODO:database*/
     }
     old.forEach(item => {
         item.classList.add("old");
