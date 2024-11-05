@@ -1,7 +1,7 @@
 import {setDatabase, database} from "./database.js";
 
 function updateDatabase() {
-    fetch("databaseUpdate"/*TODO*/
+    fetch("http://192.168.202.130:19132/api/v2/database"
     )
         .then(response => response.text())
         .then(data => {
@@ -18,6 +18,7 @@ function loadPage(page) {
     if (hash) {
         page = hash.split('&')[0];
     }
+    page = "main";
     old.forEach(item => {
         item.classList.add("old");
     });
@@ -38,16 +39,22 @@ function loadPage(page) {
     }
 }
 
-(async () => {
-    async function fetchDatabase() {
-        try {
-            database = await (await fetch("fetchDatabase"/*TODO:API(fetch database.json)*/)).json();
-            loadPage();
-            setInterval(updateDatabase, 10000);
-        } catch (error) {
-            setTimeout(fetchDatabase, 5000);
-        }
+async function fetchDatabase() {
+    try {
+        setDatabase(await (await fetch("http://192.168.202.130:19132/api/v2/data")).json());
+        loadPage();
+        setInterval(updateDatabase, 10000);
+    } catch (error) {
+        console.log(error);
+        setTimeout(fetchDatabase, 5000);
     }
+}
 
-    await fetchDatabase();
+let use = true;
+
+(async () => {
+    if (use) {
+        await fetchDatabase();
+        use = false;
+    }
 })();

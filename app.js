@@ -6,8 +6,6 @@ const cron = require('node-cron');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-let fetch;
-
 app.use(express.static(join(__dirname, '')));
 
 app.get('*', (req, res) => {
@@ -19,9 +17,8 @@ app.listen(PORT, () => {
 });
 
 cron.schedule('*/10 * * * * *', () => {
-    fetch(""/*TODO*/, {
-        headers: {"branchUpdateTime": ""/*TODO*/}
-    })
+    fetch("http://192.168.202.130:19132/api/v2/git"
+    )
         .then(response => response.text())
         .then(data => {
             if (data === "true") {
