@@ -6,8 +6,10 @@ window.onload = function () {
     } else {
         [mainColor, secondaryColor] = [];/*TODO: API database theme*/
     }
-    document.documentElement.style.setProperty("--main-color", `#${mainColor}`);
-    document.documentElement.style.setProperty("--secondary-color", `#${secondaryColor}`);
+    if (mainColor && secondaryColor) {
+        document.documentElement.style.setProperty("--main-color", `#${mainColor}`);
+        document.documentElement.style.setProperty("--secondary-color", `#${secondaryColor}`);
+    }
 }
 
 document.addEventListener("mousemove", () => {
