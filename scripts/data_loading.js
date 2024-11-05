@@ -18,7 +18,6 @@ function loadPage(page) {
     if (hash) {
         page = hash.split('&')[0];
     }
-    page = "main";
     old.forEach(item => {
         item.classList.add("old");
     });
