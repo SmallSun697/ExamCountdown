@@ -11,10 +11,13 @@ body, html {
   justify-content: center;
   align-items: center;
   background-color: var(--secondary-color);
-  transition: background-color 3s ease;
+}
+
+iframe {
+  opacity: 0;
+  transition: opacity 1.5s ease;
 }
 
 p {
   color: var(--main-color);
-  transition: color 1s ease;
 }

@@ -31,10 +31,12 @@ function loadPage(page) {
     iframe.style.left = "0";
     document.body.appendChild(iframe);
     iframe.onload = () => {
+        iframe.style.opacity = "1";
         document.querySelectorAll(".old").forEach((item) => {
-            item.remove();
+            setTimeout(() => {
+                item.remove()
+            }, 1500);
         })
-        iframe.style.display = "block";
     }
 }
 
@@ -44,7 +46,6 @@ async function fetchDatabase() {
         loadPage();
         setInterval(updateDatabase, 10000);
     } catch (error) {
-        console.log(error);
         setTimeout(fetchDatabase, 5000);
     }
 }
