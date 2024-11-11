@@ -1,14 +1,13 @@
-import {setDatabase, database} from "./database.js";
+let data;
 
-function updateDatabase() {
-    fetch("http://192.168.202.130:19132/api/v2/database"
-    )
-        .then(response => response.text())
-        .then(data => {
-            if (data.trim() === "true") {
-                loadPage();
-            }
-        });
+async function fetchDatabase() {
+    try {
+        data = await (await fetch("http://localhost:3000/api/v2/data")).json();
+        localStorage.setItem("database", JSON.stringify(data));
+        loadPage(data.page);
+    } catch (error) {
+        setTimeout(fetchDatabase, 3000);
+    }
 }
 
 function loadPage(page) {
@@ -40,21 +39,19 @@ function loadPage(page) {
     }
 }
 
-async function fetchDatabase() {
-    try {
-        setDatabase(await (await fetch("http://192.168.202.130:19132/api/v2/data")).json());
-        loadPage();
-        setInterval(updateDatabase, 10000);
-    } catch (error) {
-        setTimeout(fetchDatabase, 5000);
-    }
+function updateDatabase() {
+    fetch("http://localhost:3000/api/v2/version?ver=" + data.version)
+        .then(response => response.text())
+        .then(async data => {
+            if (data.trim() === "true") {
+                await fetchDatabase();
+            } else if (data.trim() === "reload") {
+                window.location.reload();
+            }
+        });
 }
 
-let use = true;
-
 (async () => {
-    if (use) {
-        await fetchDatabase();
-        use = false;
-    }
+    await fetchDatabase();
+    setInterval(updateDatabase, 10000);
 })();
