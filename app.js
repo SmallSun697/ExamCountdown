@@ -31,6 +31,7 @@ app.get('/api/v2/data', (req, res) => {
     data = {
         version: getVersion(),
         nextTime: nextTime,
+        notepad: database.notepad,
         ...data.days[new Date().getDay()]
     };
     res.send(data);

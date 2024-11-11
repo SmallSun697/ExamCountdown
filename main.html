@@ -20,6 +20,10 @@
             height: 50%;
         }
 
+        .notepad {
+            font-size: 3vw;
+        }
+
         #countdown {
             font-size: 9vw;
         }
@@ -27,26 +31,61 @@
 </head>
 <body>
 <div class="row">
-    <div class="div">
+    <div class="div notepad" style="display: flex; flex-direction: column">
     </div>
     <div class="div">
         <p id="countdown"></p>
     </div>
 </div>
 <script>
-    const endDate = "2025-04-26T10:20:00.000";
-    const end = new Date(endDate).getTime();
+    const notepad = document.querySelector(".notepad");
+    const notes = JSON.parse(localStorage.getItem("database")).notepad;
+    setInterval(() => {
+        notepad.innerHTML = "";
+        for (let i = 0; i < notes.length; i++) {
+            const noteContainer = document.createElement("div");
+            noteContainer.style.width = "78vw";
+            noteContainer.style.display = "flex";
+            noteContainer.style.justifyContent = "space-between";
+            const noteText = document.createElement("span");
+            noteText.textContent = notes[i].note;
+            const noteDate = document.createElement("span");
+            const targetDate = new Date(notes[i].date);
+            const now = new Date();
+            const diffMs = targetDate - now;
+            if (diffMs > 0) {
+                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+                const diffSeconds = Math.floor((diffMs % (1000 * 60)) / 1000);
+                if (diffDays > 0) {
+                    noteDate.textContent = `${diffDays}天`;
+                } else if (diffHours > 0) {
+                    noteDate.textContent = `${diffHours}小時`;
+                } else if (diffMinutes > 0) {
+                    noteDate.textContent = `${diffMinutes}分鐘`;
+                } else {
+                    noteDate.textContent = `${diffSeconds}秒`;
+                }
+            } else {
+                noteDate.textContent = "已過期";
+            }
+            noteContainer.appendChild(noteText);
+            noteContainer.appendChild(noteDate);
+            notepad.appendChild(noteContainer);
+        }
+    }, 200);
 
-    function updateCountdown() {
+    const endTime = new Date("2025-04-26T10:20:00.000").getTime();
+    const interval = setInterval(() => {
         const now = new Date().getTime();
-        const timeRemaining = end - now;
+        const timeRemaining = endTime - now;
         const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
         const milliseconds = Math.floor(timeRemaining % 1000);
         let formattedTime = "";
-
         if (days > 0) {
             formattedTime += `${days}天 `;
         }
@@ -62,9 +101,7 @@
             formattedTime = "考試開始";
         }
         document.getElementById("countdown").innerText = formattedTime.toString();
-    }
-
-    const interval = setInterval(updateCountdown, 9);
+    }, 9);
 </script>
 <script src="scripts/script.js"></script>
 </body>

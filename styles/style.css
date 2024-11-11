@@ -23,4 +23,8 @@ p {
   color: var(--main-color);
 }
 
+span {
+  color: var(--main-color);
+}
+
 /*# sourceMappingURL=style.css.map */
