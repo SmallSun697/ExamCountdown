@@ -50,7 +50,7 @@ app.get('/api/v2/version', (req, res) => {
             res.send(true);
         }
     } else {
-        execSync("git pull https://github.com/SmallSun697/ExamCountdown");
+        //execSync("git pull https://github.com/SmallSun697/ExamCountdown");
         gitVersion = hash;
         res.send("reload");
     }

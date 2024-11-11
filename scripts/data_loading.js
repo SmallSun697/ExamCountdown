@@ -2,7 +2,7 @@ let data;
 
 async function fetchDatabase() {
     try {
-        data = await (await fetch("http://localhost:3000/api/v2/data")).json();
+        data = await (await fetch("api/v2/data")).json();
         localStorage.setItem("database", JSON.stringify(data));
         loadPage(data.page);
     } catch (error) {
@@ -40,7 +40,7 @@ function loadPage(page) {
 }
 
 function updateDatabase() {
-    fetch("http://localhost:3000/api/v2/version?ver=" + data.version)
+    fetch("api/v2/version?ver=" + data.version)
         .then(response => response.text())
         .then(async data => {
             if (data.trim() === "true") {
