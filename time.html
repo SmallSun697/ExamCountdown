@@ -17,7 +17,8 @@
 <p id="time"></p>
 <script>
     function updateTime() {
-        const hours = String(new Date().getHours()).padStart(2, '0');
+        let hours = new Date().getHours();
+        hours = String((hours % 12) || 12).padStart(2, '0');
         const minutes = String(new Date().getMinutes()).padStart(2, '0');
         const seconds = String(new Date().getSeconds()).padStart(2, '0');
         document.getElementById("time").innerText = `${hours}:${minutes}:${seconds}`;

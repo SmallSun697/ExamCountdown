@@ -68,7 +68,8 @@
                     noteDate.textContent = `${diffSeconds}秒`;
                 }
             } else {
-                noteDate.textContent = "已過期";
+                noteText.style.textDecoration = "line-through";
+                noteDate.textContent = "";
             }
             noteContainer.appendChild(noteText);
             noteContainer.appendChild(noteDate);
