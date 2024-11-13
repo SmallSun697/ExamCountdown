@@ -1,4 +1,5 @@
 let data;
+let lastTime = 0;
 
 async function fetchDatabase() {
     try {
@@ -33,10 +34,19 @@ function loadPage(page) {
         iframe.style.opacity = "1";
         document.querySelectorAll(".old").forEach((item) => {
             setTimeout(() => {
-                item.remove()
+                item.remove();
             }, 1500);
         })
     }
+}
+
+async function pageChangeCheck() {
+    const now = new Date().getHours() * 60 + new Date().getMinutes();
+    if (lastTime > now || now >= data.nextTime) {
+        await fetchDatabase();
+    }
+    lastTime = now;
+    setTimeout(pageChangeCheck, 500);
 }
 
 function updateDatabase() {
@@ -51,7 +61,6 @@ function updateDatabase() {
         });
 }
 
-(async () => {
-    await fetchDatabase();
-    setInterval(updateDatabase, 10000);
-})();
+await fetchDatabase();
+setInterval(updateDatabase, 10000);
+await pageChangeCheck();

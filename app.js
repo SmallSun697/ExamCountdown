@@ -26,7 +26,7 @@ app.get('/api/v2/data', (req, res) => {
         }
     }
     if (!nextTime) {
-        nextTime = timeList[timeList.length];
+        nextTime = 1440;
     }
     data = {
         version: getVersion(),
